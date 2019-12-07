@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Neural art generation</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Back to Homepage</a>
+					</header>
+
+				<!-- Nav -->
+
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<!-- <span class="date">April 25, 2017</span> -->
+									<h1>Art generation with Neural Style Transfer</h1>
+									<p>Neural Style Transfer (NST) is one of the most fun techniques in deep learning. As seen below, it merges two images, namely: a "content" image (C) and a "style" image (S), to create a "generated" image (G).
+										The generated image G combines the "content" of the image C with the "style" of image S.</br>
+										Below are two such images: On the left is a picture of lake that I captured recently and on the right is the famous impressionist painting <a href="https://en.wikipedia.org/wiki/Claude_Monet">Poppies by Monet</a>.
+									</p>
+									<!-- <div class="image main"><img title="The" src="images/before_reflection.jpg" alt="" style="float: left; width: 400px; height: 300px;"/></div> -->
+									<img class="images" src="images/before_reflection.jpg" alt="" style="float: left; width: 400px; height: 300px;"/>
+									<img class="images" src="images/plus.png" alt="" style="float: left; width: 35; height: 300px;"/>
+									<img class="images" src="images/monet.jpg" alt="" style="float: left; width: 400px; height: 300px;"/>
+									<!-- <div class="image main"><img src="images/plus.png" alt="" style="float:left; width: 35px; height: 300px;"/></div> -->
+									<!-- <div class="image main"><img src="images/monet.jpg" alt="" style="float: inherit; width: 400px; height: 300px;"/></div> -->
+								</header>
+
+								<header class="major">
+									<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.</p>
+									<a href="#" class="images"><img src="images/after_reflection.png" alt="after" /></a>
+									<p>
+										</br>This Neural Style Transfer was built using transfer learning i.e. using a previously trained convolutional network, and builds on top of that. 
+										The model has learned to recognize a variety of low level features (edges, simple textures etc.) at lower layers and high level features (objects, complex shapes etc.) at deeper layers.
+										We select the ouput from the middle layer to get the most visually appealing results.
+									</p>
+								</header>
+								<header class="major">
+									<h3>Art generation in action:</h3>
+									<p>Below are few animations that show how the generated image is modified with increasing iterations.</p>
+									<a href="#" class="images"><img src="images/reflections.gif" alt="after" /></a>
+									<a href="#" class="images"><img src="images/night_bridge.gif" alt="after" /></a>
+									<a href="#" class="images"><img src="images/double_rainbow.gif" alt="after" /></a>
+									<a href="#" class="images"><img src="images/louvre.gif" alt="after" /></a>
+								</header>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<!-- <section>
+							<form method="post" action="#">
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="name" id="name" />
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="text" name="email" id="email" />
+									</div>
+									<div class="field">
+										<label for="message">Message</label>
+										<textarea name="message" id="message" rows="3"></textarea>
+									</div>
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</form>
+						</section> -->
+						<section>
+								<h3>Phone</h3>
+								<p><a href="#">(480) 401-9508</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">murrahma@asu.edu</a></p>
+							</section>
+							<section>
+								<!-- <h3>Social</h3> -->
+								<ul class="icons alt">
+									<!-- <li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li> -->
+									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li> 
+									<li><a href="#" class="icon brands fa-linkedin"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
