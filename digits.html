@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Neural art generation</title>
+		<title>Handwritten Digit Prediction</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -32,36 +32,38 @@
 							<section class="post">
 								<header class="major">
 									<!-- <span class="date">April 25, 2017</span> -->
-									<h1>Art generation with Neural Style Transfer</h1>
-									<p>Neural Style Transfer (NST) is one of the most fun techniques in deep learning. As seen below, it merges two images, namely: a "content" image (C) and a "style" image (S), to create a "generated" image (G).
-										The generated image G combines the "content" of the image C with the "style" of image S.</br>
-										Below are two such images: On the left is a picture of lake that I captured recently and on the right is the famous impressionist painting <a href="https://en.wikipedia.org/wiki/Claude_Monet">Poppies by Monet</a>.
+									<h1>Handwritten digit recognition</h1>
+									<p>This model uses KNN technique to predict handwritten digits. I have implemented this model using increasing K values {2,3,5,10,20,30,40,50,60}.</br>
+										The <a href="http://yann.lecun.com/exdb/mnist/">MNIST</a> dataset used for this project was split into 6:1 train/test split. 
+										Hence the training set contains 60,000 images and the test/validation set has 10,000 images.</br>
 									</p>
 									<!-- <div class="image main"><img title="The" src="images/before_reflection.jpg" alt="" style="float: left; width: 400px; height: 300px;"/></div> -->
-									<img class="images" src="images/before_reflection.jpg" alt="" style="float: left; width: 400px; height: 300px;"/>
+									<!-- <img class="images" src="images/before_reflection.jpg" alt="" style="float: left; width: 400px; height: 300px;"/>
 									<img class="images" src="images/plus.png" alt="" style="float: left; width: 35; height: 300px;"/>
-									<img class="images" src="images/monet.jpg" alt="" style="float: left; width: 400px; height: 300px;"/>
+									<img class="images" src="images/monet.jpg" alt="" style="float: left; width: 400px; height: 300px;"/> -->
 									<!-- <div class="image main"><img src="images/plus.png" alt="" style="float:left; width: 35px; height: 300px;"/></div> -->
 									<!-- <div class="image main"><img src="images/monet.jpg" alt="" style="float: inherit; width: 400px; height: 300px;"/></div> -->
 								</header>
 
 								<header class="major">
 									<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.</p>
-									<a href="#" class="images"><img src="images/after_reflection.png" alt="after" /></a>
+									<a href="#" class="images"><img src="images/MNIST.gif" alt="after" style="width: 85%; height: 85%;" /></a>
 									<p>
-										</br>This Neural Style Transfer was built using transfer learning i.e. using a previously trained convolutional network, and builds on top of that. 
-										The model has learned to recognize a variety of low level features (edges, simple textures etc.) at lower layers and high level features (objects, complex shapes etc.) at deeper layers.
-										We select the ouput from the middle layer to get the most visually appealing results.
+										The plot shows the accuracy of the KNN model for varying values of K.</br></br>
+										To predict the digit in a given test image its distance from all 60,000 images was recorded and its nearest K neighbors are selected for consideration.
+										Then using maximum voting strategy, the most common occurence among the K nearest neighbor was recorded and its value is assigned to the test image.
+										
+
 									</p>
 								</header>
-								<header class="major">
+								<!-- <header class="major">
 									<h3>Art generation in action:</h3>
 									<p>Below are few animations that show how the generated image is modified with increasing iterations.</p>
 									<a href="#" class="images"><img src="images/reflections.gif" alt="after" /></a>
 									<a href="#" class="images"><img src="images/night_bridge.gif" alt="after" /></a>
 									<a href="#" class="images"><img src="images/double_rainbow.gif" alt="after" /></a>
 									<a href="#" class="images"><img src="images/louvre.gif" alt="after" /></a>
-								</header>
+								</header> -->
 							</section>
 
 					</div>
