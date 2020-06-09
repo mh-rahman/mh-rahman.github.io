@@ -127,7 +127,7 @@
 
 		// Toggle.
 			$navPanelToggle = $(
-				'<a href="#nav" id="navPanelToggle">Top</a>'
+				'<a href="#navPanel" id="navPanelToggle">Menu</a>'
 			)
 				.appendTo($wrapper);
 
@@ -168,11 +168,10 @@
 			// Move nav content on breakpoint change.
 				var $navContent = $nav.children();
 
-				breakpoints.on('>0', function() {
+				breakpoints.on('>medium', function() {
 
 					// NavPanel -> Nav.
 						$navContent.appendTo($nav);
-						$navContent.appendTo($navPanelInner);
 
 					// Flip icon classes.
 						$nav.find('.icons, .icon')
@@ -180,7 +179,7 @@
 
 				});
 
-				breakpoints.on('>0', function() {
+				breakpoints.on('<=medium', function() {
 
 					// Nav -> NavPanel.
 						$navContent.appendTo($navPanelInner);

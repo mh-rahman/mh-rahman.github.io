@@ -3323,7 +3323,7 @@ input, select, textarea {
 
 	#intro {
 		color: #ffffff;
-		padding: 0rem 4rem 4rem 4rem ;
+		padding: 8rem 4rem 6rem 4rem ;
 		-moz-align-items: center;
 		-webkit-align-items: center;
 		-ms-align-items: center;
@@ -3351,7 +3351,6 @@ input, select, textarea {
 		min-height: 100vh;
 	}
 
-	
 		#intro input, #intro select, #intro textarea {
 			color: #ffffff;
 		}
@@ -3430,9 +3429,9 @@ input, select, textarea {
 		}
 
 		#intro p {
-			font-size: 1rem;
+			font-size: 1.25rem;
 			font-style: italic;
-			margin-top: -.25rem;
+			margin-top: -0.25rem;
 			text-align: center;
 		}
 
@@ -3440,7 +3439,7 @@ input, select, textarea {
 			margin-top: -20rem;
 		}
 
-			/* #intro + #header .logo {
+			#intro + #header .logo {
 				-moz-transform: translateY(2rem);
 				-webkit-transform: translateY(2rem);
 				-ms-transform: translateY(2rem);
@@ -3470,7 +3469,7 @@ input, select, textarea {
 				transform: translateY(0);
 				opacity: 1;
 				visibility: visible;
-			} */
+			}
 
 		body.is-preload #intro {
 			-moz-transform: translateY(2rem);
@@ -4530,22 +4529,19 @@ input, select, textarea {
 		-webkit-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 		-ms-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 		transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-		display: block;
+		display: none;
 		position: fixed;
-		bottom: 3.75rem;
-		right: 1rem;
+		top: 0.75rem;
+		right: 0.75rem;
 		border: 0;
-		/* color: #ffffff; */
+		color: #ffffff;
 		font-family: "Source Sans Pro", Helvetica, sans-serif;
 		font-size: 0.9rem;
 		font-weight: 900;
 		letter-spacing: 0.075em;
-		padding: 0rem 0.5rem;
+		padding: 0.375rem 1.25rem;
 		text-transform: uppercase;
 		z-index: 10001;
-		background-color: rgba(255, 255, 255, 0.875);
-		box-shadow: 0 0.125rem 0.75rem 0 rgba(30, 37, 45, 0.25);
-		color: #212931;
 	}
 
 		#navPanelToggle:before {
@@ -4602,7 +4598,7 @@ input, select, textarea {
 		-webkit-transition: -webkit-transform 0.5s ease, box-shadow 0.5s ease, visibility 0.5s;
 		-ms-transition: -ms-transform 0.5s ease, box-shadow 0.5s ease, visibility 0.5s;
 		transition: transform 0.5s ease, box-shadow 0.5s ease, visibility 0.5s;
-		display: block;
+		display: none;
 		-webkit-overflow-scrolling: touch;
 		background: #ffffff;
 		box-shadow: none;
@@ -4614,7 +4610,7 @@ input, select, textarea {
 		position: fixed;
 		right: 0;
 		top: 0;
-		visibility: visible;
+		visibility: hidden;
 		width: 20rem;
 		z-index: 10002;
 	}
@@ -4663,7 +4659,7 @@ input, select, textarea {
 			text-align: right;
 			top: 0;
 			vertical-align: middle;
-			width: 4rem;
+			width: 7rem;
 		}
 
 			#navPanel .close:before {
@@ -4713,7 +4709,7 @@ input, select, textarea {
 
 		}
 
-	@media screen and (max-width: 9800px) {
+	@media screen and (max-width: 980px) {
 
 		body.is-navPanel-visible #wrapper {
 			opacity: 0.5;
