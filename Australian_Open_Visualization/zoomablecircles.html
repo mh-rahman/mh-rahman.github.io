@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" 
+      type="image/png" 
+      href="img/favicon.png">
+  <title>Australian Open - 10 year visualization</title>
+
+  <style>
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+  </style>
+</head>
+
+<body style="overflow: hidden;">
+  
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="pull-left">
+        <svg width="620" height="620"></svg>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="text-center">
+        <div class="row">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-8">
+            <div class="row">
+              <div id="yearDisplay" style="color: wheat; font-size: 20px;text-align: left;"></div>
+            </div>
+            <div class="row">
+              <div id="playerName" style="color: wheat; font-size: 15px;text-align: left;"></div>
+            </div>
+            <div class="row">
+              <div id="parentDisplay" style="color: wheat; font-size: 13px;text-align: left;"></div>
+            </div>
+            <div class="row">
+              <div id="output" style="color: wheat; font-size: 13px; height: 130px;text-align: left;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row">
+            <div  class="col-sm-4"></div>
+            <div id ="titleDisplay" class="col-sm-4" style="margin-top: 30px; color: #000; text-align: left;"></div>
+            <div class="col-sm-4"></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-11">
+              <div id="chart" class="pull-left"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- This is div for the zoomable circles -->
+
+  <style>
+    .node {
+      cursor: pointer;
+    }
+
+    .node:hover {
+      stroke: rgb(192, 169, 169);
+      stroke-width: 1.5px;
+      /*Width of circle's boundary*/
+
+    }
+
+    .node--leaf {
+      fill: rgb(145, 179, 163);
+      /*Fill for basic circle*/
+    }
+
+    .label {
+      font: 20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+      /* color: #fff; */
+      text-anchor: middle;
+      /* stroke-width: 0.1px; */
+      /*Position for text*/
+      /* text-shadow: 0 0px 0 #fff, 1px 0 0 #fff, 0px 0 0 #fff, 0 -1px 0 #fff; */
+    }
+
+    .label,
+    .node--root,
+    .node--leaf {
+      pointer-events: none;
+    }
+  </style>
+
+  <script src="js/RadarChart.js"></script>
+  <script src="js/d3.v4.min.js"></script>
+
+  <script>
+    var svg = d3.select("svg"),
+      margin = 20,
+      diameter = +svg.attr("width"),
+      g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+
+    var color = d3.scaleLinear()
+      .domain([-1, 5])
+      // .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+      // .range(["hsl(152,100%,25%)", "hsl(152,50%,15%)"])
+      .range(["hsl(152,80%,80%)", "hsl(152,30%,40%)"])
+      .interpolate(d3.interpolateHcl);
+
+    var pack = d3.pack()
+      .size([diameter - margin, diameter - margin])
+      .padding(2);
+
+
+    d3.json("data/aus_open-min.json", function (error, root) {
+      if (error) throw error;
+
+      root = d3.hierarchy(root)
+        .sum(function (d) { return d.size; })
+        .sort(function (a, b) { return b.value - a.value; });
+
+      var focus = root,
+        nodes = pack(root).descendants(),
+        view;
+
+      var circle = g.selectAll("circle")
+        .data(nodes)
+        .enter().append("circle")
+        .attr("class", function (d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
+        .style("fill", function (d) { return d.children ? color(d.depth) : null; })
+        .on("click", function (d) {
+          // disp_year(d);
+          disp_name(d);
+          if (focus !== d) zoom(d), d3.event.stopPropagation();
+        });
+
+      var text = g.selectAll("text")
+        .data(nodes)
+        .enter().append("text")
+        .attr("class", "label")
+        .style("fill-opacity", function (d) { return d.parent === root ? 1 : 0; })
+        .style("display", function (d) { return d.parent === root ? "inline" : "none"; })
+        .text(function (d) { return d.data.name; });
+
+
+      var node = g.selectAll("circle,text");
+
+      svg
+        /*.style("background", color(-1)) /*Set background color*/
+        .style("background", "#5d2730")
+        .on("click", function () { zoom(root); });
+      d3.select("body").style("background", "#5d2730");
+
+
+      zoomTo([root.x, root.y, root.r * 2 + margin]);
+
+      function zoom(d) {
+        var focus0 = focus; focus = d;
+
+        var transition = d3.transition()
+          .duration(d3.event.altKey ? 7500 : 750)
+          .tween("zoom", function (d) {
+            var i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2 + margin]);
+            return function (t) { zoomTo(i(t)); };
+          });
+
+        transition.selectAll("text")
+          .filter(function (d) { return d.parent === focus || this.style.display === "inline"; })
+          .style("fill-opacity", function (d) { return d.parent === focus ? 1 : 0; })
+          .on("start", function (d) { if (d.parent === focus) this.style.display = "inline"; })
+          .on("end", function (d) { if (d.parent !== focus) this.style.display = "none"; });
+      }
+
+      function zoomTo(v) {
+        var k = diameter / v[2]; view = v;
+        node.attr("transform", function (d) { return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")"; });
+        circle.attr("r", function (d) { return d.r * k; });
+      }
+    }); 
+
+    window.onload = function () {
+      // var name = prompt("What's your name?");
+      // name = d.data.name
+      document.getElementById('yearDisplay').innerHTML = "</br>Australian Open (2004 to 2014)";
+      document.getElementById('output').innerHTML =  "<strong></br>Select a year</strong>";
+      document.getElementById('parentDisplay').innerHTML =  "<small>Click on a circle to zoom-in.</br> Click on it's parent circle to zoom out.</br>Click on the same circle again to completely zoom out.</small>";
+    };
+
+    function disp_name(d) {
+      // var name = prompt("What's your name?");
+      // text = "This is 10 year data. Select a year."
+      var name = d.data.name;
+      var parent_name = d.parent.data.name;
+      var arr = ["flare", "Click Here!", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014"]
+      if (arr.indexOf(name) < 0) {
+        var childCount = 0;
+        var defeatedNamesHTML = "<strong>Defeated</strong>: <ul>";
+        //defeated = d.children.map(function(child) { return child.data.name});
+        d.children.map(function (child) { 
+          if (child.data.name == ""){
+            defeatedNamesHTML += "<li>None</li>"; 
+            return "";
+          }
+          else{
+            defeatedNamesHTML += "<li>" + child.data.name + "</li>"; if (! child.data.name == ""){childCount+=1}; 
+            return "";
+          }
+        });
+        // d.children.map(function (child) { defeatedNamesHTML += "<li>" +  "<button onclick=zoom(" +child+ ")>Click me</button>" + "</li>"; childCount+=1; return "" });
+        defeatedNamesHTML += "</ul></span>"
+        var temp = d;
+        while (temp.parent.data.name != "flare") {
+          // d = d.parent;
+          d = temp;
+          temp = d.parent;
+        }
+        if (childCount == 7){
+          parent_name = "None";
+        }
+        var parentNamesHTML = "<strong>Lost to</strong>:<ul><li>"+parent_name+"</li></ul>";
+
+        var rounds = ["First Round", "Second Round", "Third Round", "Fourth Round", "Quarter Finals", "Semi Finals", "Finals", "Finals"];
+
+        var year = d.data.name;
+        drawRadar(year, name);
+
+        var content = "<span> <strong>" + name + "</strong> (Last round played: <strong>" + rounds[childCount] +"</strong>).</br>";
+        
+        
+        document.getElementById('playerName').innerHTML =  content;
+        document.getElementById('yearDisplay').innerHTML = "</br> Australian Open, " + year;
+        document.getElementById('parentDisplay').innerHTML =  parentNamesHTML;
+        document.getElementById('output').innerHTML =  defeatedNamesHTML;
+      }
+    };
+
+    function drawRadar(year, name) {
+      var width = 270, height = 270;
+      // Config for the Radar chart
+      var config = {
+        w: width,
+        h: height,
+        maxValue: 1,
+        levels: 5,
+        ExtraWidthX: 300
+      };
+      d3.json("data/stats-min.json", function (error, data) {
+        if (error) throw error;
+        document.getElementById('titleDisplay').innerHTML =  "Tournament average stats:";
+        RadarChart.draw("#chart", data, config, year, name);
+      });
+    };
+
+  </script>
+
+</body>
+
+</html>
