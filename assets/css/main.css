@@ -3323,15 +3323,15 @@ input, select, textarea {
 
 	#intro {
 		color: #ffffff;
-		padding: 0rem 4rem 4rem 4rem ;
+		padding: 5rem 10rem 10rem 10rem ;
 		-moz-align-items: center;
 		-webkit-align-items: center;
 		-ms-align-items: center;
 		align-items: center;
-		display: -moz-flex;
-		display: -webkit-flex;
+		/* display: -moz-flex; */
+		/* display: -webkit-flex; */
 		display: -ms-flex;
-		display: flex;
+		/* display: flex; */
 		-moz-flex-direction: column;
 		-webkit-flex-direction: column;
 		-ms-flex-direction: column;
@@ -3348,7 +3348,7 @@ input, select, textarea {
 		cursor: default;
 		text-align: center;
 		z-index: 1;
-		min-height: 100vh;
+		/* min-height: 100vh; */
 	}
 
 	
